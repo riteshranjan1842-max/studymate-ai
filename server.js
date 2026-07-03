@@ -3,7 +3,11 @@ const cors = require('cors');
 require('dotenv').config();
 
 const app = express();
-app.use(cors());
+app.use(cors({
+  origin: ['https://studymates-aii.netlify.app', 'http://localhost:5500', 'http://127.0.0.1:5500'],
+  methods: ['GET', 'POST'],
+  credentials: true
+}));
 app.use(express.json());
 
 const OPENROUTER_KEY = process.env.OPENROUTER_API_KEY;
