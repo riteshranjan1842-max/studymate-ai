@@ -74,3 +74,14 @@ app.post('/api/ai', async (req, res) => {
 
 const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => console.log(`✅ StudyMate backend running on http://localhost:${PORT}`));
+
+// ── Keep alive — pings self every 14 min so Render never sleeps ──
+const SELF_URL = process.env.RENDER_EXTERNAL_URL || 'http://localhost:3001';
+setInterval(async () => {
+  try {
+    await fetch(SELF_URL);
+    console.log('✅ Keep-alive ping sent');
+  } catch(e) {
+    console.log('Keep-alive failed:', e.message);
+  }
+}, 14 * 60 * 1000); // every 14 minutes
